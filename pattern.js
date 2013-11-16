@@ -1,11 +1,15 @@
 fs = require('fs');
 
-function getMatchIndices(regex, str) {
+function getPatternIndices(pat, str) {
    var result = [];
    var match;
-   regex = new RegExp(regex);
-   while (match = regex.exec(str))
+   
+   regex = new RegExp(pat, 'g');
+
+   while (match = regex.exec(str)) {
       result.push(match.index);
+      regex.lastIndex -= pat.length-1;
+    }
    return result;
 }
 
@@ -15,7 +19,7 @@ processFile = function(err, data) {
 	pattern = lines[0];
 
   for(i = 1; i < lines.length; i++){
-    matches = getMatchIndices("/" + pattern + "/g", lines[i]);
+    matches = getPatternIndices(pattern, lines[i]);
     console.log(matches.join(" "))
   }
 }
