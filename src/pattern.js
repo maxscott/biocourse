@@ -3,7 +3,7 @@ fs = require('fs');
 function getPatternIndices(pat, str) {
    var result = [];
    var match;
-   
+
    regex = new RegExp(pat, 'g');
 
    while (match = regex.exec(str)) {
@@ -13,7 +13,7 @@ function getPatternIndices(pat, str) {
    return result;
 }
 
-processFile = function(err, data) {
+function processFile(err, data) {
 
 	lines = data.toString().split("\n");
 	pattern = lines[0];
@@ -24,4 +24,4 @@ processFile = function(err, data) {
   }
 }
 
-fs.readFile(process.argv[2], processFile)
+fs.readFile(process.argv[2], processFile);
