@@ -21,23 +21,42 @@ function frequencies(data,k){
 
 function runClumps(k, L, t, data) {
 
-  clumps = [];
+  winners = [];
 
-  for(i = 0; i < (data.length-L); i++) {
+  // seeded with the 0th...
+  potentials = frequencies(data.substring(0, L), k);
 
-    windowedData = data.substring(i, i+L);
-    freq = frequencies(windowedData, k);
+  for(var x in potentials) {
+    if(freq[x] >= t) {
+      winners.push(x);
+    }
+  }
 
-    for(var x in freq) {
+  // starts on the 1st move
+  for(i = 1; i < (data.length-L); i++) {
 
-      // correct t number, and unique
-      if(freq[x] == t && clumps.indexOf(x) == -1) {
-        clumps.push(x);
+    //decrement the lost value
+    drop = data.substring(i-1, i+k-1);
+    potentials[drop]--;
+    if(potentials[drop] < 1) {
+      delete potentials[drop];
+    }
+
+    //increment the new value
+    add = data.substring(L+i-k, L+i);
+    
+    if(potentials[add] == null){
+      potentials[add] = 1;
+    }    
+    else {
+      potentials[add]++;
+      if(potentials[add] >= t && winners.indexOf(add) == -1) {
+        winners.push(add);
       }
     }
   }
   
-  return clumps;  
+  return winners;  
 }
 
 function processFile(err, file) {
