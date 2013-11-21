@@ -1,0 +1,20 @@
+
+data
+
+g = 0
+c = 0
+
+for i in XRANGE(0, len(data)):
+
+	d = data[i]
+
+	if d==g g++
+	if d==c c++
+
+	curr = c - g;
+
+	if curr < currmin
+		minIndices = [i]
+		currMin = curr
+	elif curr == currmin
+		minIndices.push(i)
